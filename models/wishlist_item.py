@@ -5,8 +5,8 @@ class WishlistItem(db.Model):
     name = db.Column(db.Text, nullable = False)
     description = db.Column(db.Text, nullable = True)
     link = db.Column(db.Text, nullable = True)
-    purchased = db.Column(db.Boolean, default = False)
- 
+    sort_order = db.Column(db.Integer, nullable = True)
+
     purchased = db.Column(db.Boolean, default=False, server_default="0", nullable=False)
 
     def __init__(self, name, description=None, link=None, purchased=False, sort_order=None):
