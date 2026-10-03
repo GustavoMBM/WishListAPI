@@ -1,6 +1,6 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class DefaultResponses(BaseModel):
     msg: str
-
-#Qualquer mensagem genérica deve incluir o id na string usando uma string formatada
+    id: Optional[int] = None

@@ -25,7 +25,10 @@ def post_wish():
     db.session.add(wish)
     db.session.commit()
 
-    return {"msg" : "Desejo adicionado com sucesso"}, 201
+    return {
+        "msg" : "Desejo adicionado com sucesso",
+        "id" : wish.id
+    }, 201
 
 @WishBlueprint.get("/wishlist")
 @api.validate(resp = Response(HTTP_200 = MultWishlistItemResponse, HTTP_404 = DefaultResponses), tags = ["Wishes"])
@@ -72,7 +75,10 @@ def put_wish(wish_id):
         query.purchased= data.get("purchased")
         
     db.session.commit()
-    return {"msg" : "Desejo atualizado com sucesso"}, 200
+    return {
+        "msg" : "Desejo atualizado com sucesso",
+        "id" : query.id
+    }, 200
 
 @WishBlueprint.delete("/wishlist/<int:wish_id>")
 @api.validate(resp = Response(HTTP_200 = DefaultResponses, HTTP_404 = DefaultResponses), tags = ["Wishes"])
@@ -83,11 +89,15 @@ def delete_wish(wish_id):
         return {"msg" : "Desejo não encontrado"}, 404
 
     else:
+        id = query.id
         db.session.delete(query)
 
     db.session.commit()
 
-    return {"msg" : "Desejo removido com sucesso"}
+    return {
+        "msg" : "Desejo removido com sucesso",
+        "id" : id
+    }
 
 
 
